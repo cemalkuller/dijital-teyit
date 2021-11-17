@@ -1,2 +1,3 @@
-# dijital-teyit
-Maya Teyit Uygulaması
+# Maya Bayi
+
+Maya Bayi Yönetim Sistemi

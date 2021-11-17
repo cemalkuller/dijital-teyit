@@ -93,7 +93,7 @@ function downloadfile(url,data) {
         body: formData,
         headers: authHeader()
     }; 
-    return fetch(`${config.apiUrl}/uploadDoc`, requestOptions)
+    return fetch(`${config.apiUrl}/uploadDocM`, requestOptions)
         .then(handleResponse)
         .then(sonuc => {
                return sonuc;

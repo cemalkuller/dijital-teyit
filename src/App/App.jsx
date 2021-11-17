@@ -6,7 +6,7 @@ import { history } from '../_helpers';
 import { alertActions } from '../_actions';
 import { HomePage } from '../HomePage';
 import  {Teyit}  from '../Teyit';
-import {Evrak}  from '../Evrak';
+import {Detay}  from '../Detay';
 
 import { userService } from '../_services/user.service';
 import ReactNotifications from 'react-notifications-component';
@@ -34,7 +34,7 @@ class App extends React.Component {
                 <Switch>
                
                     <Route exact path="/teyit/:token" component={Teyit} />
-                    <Route exact path="/evrak/:token" component={Evrak} />
+                    <Route exact path="/detay/:token" component={Detay} />
                     <Route path="/" component={HomePage} />     
                 </Switch>
             </Router>

@@ -5,7 +5,8 @@ import { userService } from '../_services/user.service';
 import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import 'animate.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/fontawesome-free-solid';
 
 
 const baseStyle = {
@@ -99,8 +100,8 @@ function InputFiles(props) {
         store.addNotification({
           title: 'İşlem Başarılı',
           message: result.message,
-          type: 'default',                         // 'default', 'success', 'info', 'warning'
-          container: 'bottom-right',                // where to position the notifications
+          type: 'success',                         // 'default', 'success', 'info', 'warning'
+          container: 'top-center',               // where to position the notifications
           animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
           animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
           dismiss: {
@@ -116,7 +117,7 @@ function InputFiles(props) {
           title: 'Hata Oluştu',
           message: result.message,
           type: 'warning',                         // 'default', 'success', 'info', 'warning'
-          container: 'top-right',                // where to position the notifications
+          container: 'top-center',                // where to position the notifications
           animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
           animationOut: ["animated", "fadeOut"],   // animate.css classes that's applied
           dismiss: {
@@ -160,9 +161,9 @@ function InputFiles(props) {
 
 
     return (
-      <div className="form-row evrak_div" key={fileName}>
+      <div className="row evrak_div" key={fileName}>
 
-        <div className="col">
+        <div className="col-lg-4">
           <div className="form-item evrak_image_div">
 
             <img style={{ width: '80px', maxHeight: '50px' }} src={currentFile.type == 'application/pdf' ? './assets/img/pdf.svg' : window.URL.createObjectURL(currentFile)} />
@@ -171,7 +172,7 @@ function InputFiles(props) {
 
         <div className="col">
           <div className="form-item">
-            <label>{currentFile.name}</label>
+            <label className="uzunyazi">{currentFile.name}</label>
             <select className="form-control bg-white" value={currentFile.fileType} onChange={onSelectChange}>
               <option value="">Evrak Tipi Seçiniz</option>
               {
@@ -180,8 +181,10 @@ function InputFiles(props) {
                 })
               }
             </select>
+          
           </div>
-          <i className="fa fa-trash text-red" onClick={() => remove(i)}></i>
+          <FontAwesomeIcon icon={faTrash} onClick={() => remove(i)} />
+        
         </div>
 
       </div>

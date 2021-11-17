@@ -176,6 +176,8 @@ render() {
 
 
         </div>
+
+        
         <div className="col-lg-10">
           <div className="row">
             <div className="col-lg-8">

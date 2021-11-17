@@ -6,6 +6,147 @@
     width: 100vw;
     height: 100vh;
 }
+.evrakbaslik {
+    margin-bottom: 15px !important;
+    font-size: 18px !important;
+    margin-top: 15px !important;
+    color: #003462 !important;
+    font-weight: 600 !important;
+}
+.col {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+svg.svg-inline--fa.fa-trash path {
+    fill: #e60000;
+}
+.col .form-item {
+    font-size: 12px !important;
+}
+.step_tit {
+    position: absolute;
+    width: max-content;
+    background: #003462;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    max-width: 120px;
+    text-align: center;
+    line-height: 14px;
+    top: 45px  ;
+}
+.hide{display: none !important;}
+.step_musteri:first-child {
+    background: #003462;
+    padding: 5px;
+    border-radius: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.takipno_numara {
+    border: 1px dashed #003462;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    letter-spacing: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.takipno_baslik {
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.yesil_bg {
+    background: #4caf50 !important;
+}
+.kirmizi_bg {
+    background: #f44336 !important;
+}
+.mavi {
+    background: #003462 !important;
+}
+.yesil_bg_step.customer_info .RSPBprogressBar .RSPBprogression {
+
+    background: #4caf50 !important;
+ 
+}
+.kirmizi_bg_step.customer_info .RSPBprogressBar .RSPBprogression {
+
+    background: #f44336 !important;
+ 
+}
+.mavi_step.customer_info .RSPBprogressBar .RSPBprogression {
+
+    background: #003462 !important;
+ 
+}
+.uzunyazi {
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.k_takip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+a.kargo_button {
+    text-decoration: none;
+    background: #003462;
+    padding: 5px 20px;
+    border-radius: 10px;
+    font-size: 10px;
+    color: #fff;
+    font-weight: 600;
+}
+.step_musteri svg {
+    width: 25px    ;
+}
+.step_musteri svg path {
+    fill: #fff !important;
+}
+.step_c {
+    left: -100%;
+}
+.step_musteri.passive:first-child {
+    background: #e5e5e5;
+}
+.step_r
+{
+    right:0 ;
+}
+section.drop_image p {
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    color: #e60000;
+}
+button.btn_blue {
+    background: #003462;
+    margin-top: 15px;
+    width: 100%;
+    border: 0;
+    color: #ffff;
+        padding: 10px;
+    border-radius: 15px;
+}
+button.btn_blue:disabled {
+    background: #eff1f7;
+    color: #c7c7c7;
+}
+.row.evrak_div {
+    padding: 15px;
+}
 .errorpage.container {
     z-index: 1;
     position: absolute;

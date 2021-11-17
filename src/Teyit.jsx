@@ -321,7 +321,7 @@ render() {
   let currentValue = form.teyit_il ;
   let distValue = form.teyit_ilce ;
 
-
+  const  {token} = this.props.match.params ;
 
  
 
@@ -335,21 +335,8 @@ render() {
       {" "}
       {!this.state.bekle ? (
         customer.teyit == 1 ? (
-          <div className="errpg">
-            <div className="errorpage container">
-            <h3 style={{color : '#ffffff'}}>Merhaba {customer.firstname + " "+customer.lastname};</h3>
-
-                <div style={{maxWidth : '300px'}}>
-                <p><b>{customer.productname}</b> kampanyası için <b>{customer.teyit_tarihi}</b> tarihinde 
-                <b>{customer.ip_adress}</b> ip adresi ile onay verdiniz.
-                
-                </p>
-                </div>
-          
-
-          
-            </div>
-          </div>
+          <Redirect to={"/detay/"+token} />
+      
         ) : (
           <div className="container pt-3">
             <div className="row">
@@ -449,8 +436,7 @@ render() {
                           <div className="col-lg-12 mb-3">
                             <div className="customer_info">
                               <div className="customer_info_placeholder mb-2">
-                                Kargo / Kurye Adresi{" "}
-                                {this.state.form.cargo_address}
+                                Kargo / Kurye Adresi
                               </div>
                               <textarea
                                 disabled={this.state.onayla}
@@ -524,7 +510,7 @@ render() {
                             </div>
                           </div>
 
-                          <div className="col-lg-12 mt-3">
+                          <div className="col-lg-12 mt-3 mb-3">
                             <div className="customer_info">
                               <div className="customer_info_placeholder mb-2">
                                 İletmek İstediğiniz Not{" "}
@@ -616,7 +602,7 @@ render() {
                   </div>
                   <div className="col-lg-6 mt-5 mb-5">
                     <div className="d-flex">
-                      <div className="btn-musteri">
+                      <div className="btn-musteri hide">
                         <button
                           className="musteri"
                           style={{ marginRight: "15px" }}
