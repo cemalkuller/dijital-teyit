@@ -24,7 +24,8 @@ class Teyit extends React.Component {
         rows: 2,
         minRows: 5,
         maxRows: 10,
-        form : {cargo_address : '' , teyit_il : '' ,  teyit_ilce : '' ,  teyit_not : '' , kvkk : 1 , teyit  : 1 }
+        tcdogrula : false,
+        form : {tckimlik : '' ,cargo_address : '' , teyit_il : '' ,  teyit_ilce : '' ,  teyit_not : '' , kvkk : 1 , teyit  : 1 }
     };
     this.devamEt = this.devamEt.bind(this);
     this.getDist = this.getDist.bind(this);
@@ -34,6 +35,7 @@ class Teyit extends React.Component {
     this.handleChangeTextareaM = this.handleChangeTextareaM.bind(this);
     this.setInput = this.setInput.bind(this);
     this.setCheckbox = this.setCheckbox.bind(this);
+    this.TCNOKontrol = this.TCNOKontrol.bind(this);
     
     this.myRef = React.createRef();
 
@@ -92,6 +94,51 @@ handleChangeTextareaM = (event ) => {
 
 };
 
+TCNOKontrol = (TCNO="" ) => {
+  if (!TCNO)
+  {
+    this.setState({tcdogrula: false});
+    return false ;
+  } else 
+  if (TCNO.length != 11)
+  {
+    this.setState({tcdogrula: false});
+    return false ;
+  } 
+  else if (TCNO[0] == 0) {
+    
+    this.setState({tcdogrula: false});
+    return false ;
+
+  }
+  var tek = 0,
+    cift = 0,
+    sonuc = 0,
+    TCToplam = 0,
+    i = 0,
+    hatali = [11111111110, 22222222220, 33333333330, 44444444440, 55555555550, 66666666660, 7777777770, 88888888880, 99999999990];;
+    var durumu = true ;
+    tek = parseInt(TCNO[0]) + parseInt(TCNO[2]) + parseInt(TCNO[4]) + parseInt(TCNO[6]) + parseInt(TCNO[8]);
+    cift = parseInt(TCNO[1]) + parseInt(TCNO[3]) + parseInt(TCNO[5]) + parseInt(TCNO[7]);
+  
+    tek = tek * 7;
+    sonuc = Math.abs(tek - cift);
+    for (var i = 0; i < 10; i++) {
+      TCToplam += parseInt(TCNO[i]);
+    }
+ 
+ 
+  if (sonuc % 10 != TCNO[9]) {durumu = false;}
+  else if (TCToplam % 10 != TCNO[10]){ durumu = false;}
+  else if (hatali.toString().indexOf(TCNO) != -1) {
+    durumu = false;
+  }
+console.log(TCNO);
+  this.setState({tcdogrula: durumu});
+  
+
+
+};
 
 handleChangeTextarea = (event ) => {
 
@@ -180,8 +227,9 @@ fetch('https://backend.abonesepeti.com/api/updateConfirm/'+token, requestOptions
                   formum.cargo_address = data.cargo_address ;
                   formum.teyit_il = data.cityId ;
                   formum.teyit_ilce = data.districtId ;
+                  formum.tckimlik = data.tckimlik ;
         
-        
+                  this.TCNOKontrol(data.tckimlik);
                   this.setState({ formum});
                 this.setState({ customer: data , bekle : false });
         
@@ -287,7 +335,9 @@ componentDidMount() {
           formum.cargo_address = data.cargo_address ;
           formum.teyit_il = data.cityId ;
           formum.teyit_ilce = data.districtId ;
+          formum.tckimlik = data.tckimlik ;
 
+          this.TCNOKontrol(data.tckimlik);
 
           this.setState({ formum});
         this.setState({ customer: data , bekle : false });
@@ -394,8 +444,12 @@ render() {
                         bilgilerinizi kontrol ederek onaylamanız gerekmektedir.
                       </p>
                     </div>
-                    <div className="row mt-3">
-                      <div className="col-lg-4 t15">
+
+
+                    
+                      {customer.tckimlik > 0 ? 
+                      <div className="row mt-3">
+                      <div className="col-lg-6 t15">
                         <div className="customer_info">
                           <div className="customer_info_placeholder">
                             Tc Kimlik Numarası
@@ -404,8 +458,51 @@ render() {
                             {customer.tckimlik}
                           </div>
                         </div>
+                      </div></div> :
+                       <div className="row mt-3">
+                        <div className="col-lg-6 t15">
+                        <div className="customer_info">
+                          <div className="customer_info_placeholder">
+                            Tc Kimlik Numarası
+                          </div>
+                          <div className="customer_info_value" style={{paddingBottom : '10px' , paddingTop : '5px'}}>
+                            <input 
+                              className={this.state.tcdogrula ? 'form-control dogru' :'form-control hatali'  }
+                                  disabled={this.state.onayla}
+                                  placeholder="Tc Kimlik Numaranız"
+                                  name="tckimlik"
+                                  type="tel"
+                                  onChange={
+                                    (event) => {
+                                      this.setInput(event);
+                                      this.TCNOKontrol(event.target.value);
+                                      
+                                    }
+
+                                    
+                                  
+                                  }
+                                  />
+                                
+                          </div>
+                        </div>
                       </div>
                       <div className="col-lg-4 t15">
+                        <div className="customer_info">
+                         
+                          <div className="customer_info_value">
+                            Aktivasyon işlemlerinizin tamamlanması için Tc Kimlik numaranızı yazmanız gerekmektedir.
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      }
+                     
+                     
+                    
+
+                    <div className="row mt-3">
+                    <div className="col-lg-6 t15">
                         <div className="customer_info">
                           <div className="customer_info_placeholder">
                             İsim Soyisim
@@ -415,7 +512,11 @@ render() {
                           </div>
                         </div>
                       </div>
-                      {customer.customer_data.gecisno ? (
+                    </div>
+
+                    
+                    {customer.customer_data.gecisno ? (
+                      <div className="row mt-3">
                         <div className="col-lg-4 t15">
                           <div className="customer_info">
                             <div className="customer_info_placeholder">
@@ -426,10 +527,11 @@ render() {
                             </div>
                           </div>
                         </div>
+                        </div>
                       ) : (
                         <></>
                       )}
-                    </div>
+                  
                     <div className="row mt-3">
                       <div className="col-lg-8">
                         <div className="row">
@@ -512,7 +614,7 @@ render() {
 
                           <div className="col-lg-12 mt-3 mb-3">
                             <div className="customer_info">
-                              <div className="customer_info_placeholder mb-2">
+                              <div className="customer_info_placeholder mb-2 text-danger" style={{fontWeight  :'600' }}>
                                 İletmek İstediğiniz Not{" "}
                                 {this.state.form.teyit_not}
                               </div>
@@ -595,7 +697,7 @@ render() {
                         id="kvkk"
                       />
                       <label className="form-check-label" htmlFor="kvkk">
-                        Kişisel veri aydınlatma metni'ni okudum, kişisel
+                        Kişisel
                         verilerimin işlenmesine izin veriyorum.
                       </label>
                     </div>
@@ -615,7 +717,7 @@ render() {
                       <Button
                         variant="dark"
                         className="btn btn-success"
-                        disabled={this.state.onayla}
+                        disabled={this.state.onayla || !this.state.tcdogrula}
                         onClick={this.devamEt}
                       >
                         {this.state.onayla ? (
